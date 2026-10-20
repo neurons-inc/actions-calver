@@ -11,6 +11,10 @@ inputs:
   prefix-tag:
     required: false
     description: 'Prefix to add to the git tag (not included in output)'
+  dry-run:
+    required: false
+    default: 'false'
+    description: 'Only output the next tag, without creating it'
 outputs:
   tag:
     description: 'The generated tag'

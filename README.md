@@ -38,6 +38,10 @@ jobs:
 
 This will create a git tag like `v2023.01.15-01` but the output will still be `2023.01.15-01`.
 
+## Dry run
+
+Set `dry-run: 'true'` to get the next tag in the output without creating it, for example to put the version in a build before the tag is made. Only needs `contents: read`.
+
 ### Output
 * **tag**: The generated CalVer tag (without prefix)
 

@@ -21,9 +21,12 @@ async function run(): Promise<void> {
     const tag = buildTag(date, newMicro)
     const gitTag = prefix ? `${prefix}${tag}` : tag
 
-    core.info(`Creating tag ${gitTag} for commit ${sha}`)
-
-    await createTag(gitTag, sha)
+    if (core.getBooleanInput('dry-run')) {
+      core.info(`Dry run: next tag is ${gitTag}, not created`)
+    } else {
+      core.info(`Creating tag ${gitTag} for commit ${sha}`)
+      await createTag(gitTag, sha)
+    }
     core.setOutput('tag', tag)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
