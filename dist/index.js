@@ -153,8 +153,13 @@ function run() {
             const newMicro = (0, tag_1.nextAvailableMicro)(datePart, existingTags, prefix);
             const tag = (0, tag_1.buildTag)(date, newMicro);
             const gitTag = prefix ? `${prefix}${tag}` : tag;
-            core.info(`Creating tag ${gitTag} for commit ${sha}`);
-            yield (0, github_1.createTag)(gitTag, sha);
+            if (core.getBooleanInput('dry-run')) {
+                core.info(`Dry run: next tag is ${gitTag}, not created`);
+            }
+            else {
+                core.info(`Creating tag ${gitTag} for commit ${sha}`);
+                yield (0, github_1.createTag)(gitTag, sha);
+            }
             core.setOutput('tag', tag);
         }
         catch (error) {
